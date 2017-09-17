@@ -18,9 +18,12 @@ import java.math.MathContext;
  */
 public class OrderTest {
 
+    private static final String ITALIAN_MEAL_NAME = "Grilled pork with mushrooms \nCheesecake\n";
+    private static final String MEXICAN_MEAL_NAME = "Chili con carne \nJericalla\n";
+    private static final String COLA_WITH_LEMON = "Cola with lemon\n";
+    private static final String ITALIAN_MEAL = "Pizza \nTiramisu\n";
+    private static final double POLISH_MEAL_PRICE = 29.99;
     private Order testOrder;
-    public static final String ITALIAN_MEAL = "Pizza \nTiramisu\n";
-    public static final double POLISH_MEAL_PRICE = 29.99;
     private ItalianMeal italianMeal;
     private PolishMeal polishMeal;
     private MexicanMeal mexicanMeal;
@@ -28,24 +31,24 @@ public class OrderTest {
 
 
     @Before
-    public void setUp(){
+    public void setUp() {
         testOrder = new Order();
-       italianMeal= new ItalianMeal();
-       polishMeal = new PolishMeal();
-       mexicanMeal = new MexicanMeal();
-       drink = new Lemon(new Cola());
+        italianMeal = new ItalianMeal();
+        polishMeal = new PolishMeal();
+        mexicanMeal = new MexicanMeal();
+        drink = new Lemon(new Cola());
     }
 
     @Test
-    public void shouldReturnPriceForPolishMeal(){
+    public void shouldReturnPriceForPolishMeal() {
         PolishMeal polishMeal = new PolishMeal();
         testOrder.add(polishMeal);
 
-        Assert.assertEquals(new BigDecimal(POLISH_MEAL_PRICE, new MathContext(5)),  testOrder.getPrice());
+        Assert.assertEquals(new BigDecimal(POLISH_MEAL_PRICE, new MathContext(5)), testOrder.getPrice());
     }
 
     @Test
-    public void shouldReturnNameForItalianMeal(){
+    public void shouldReturnNameForItalianMeal() {
 
         order(italianMeal);
 
@@ -53,16 +56,25 @@ public class OrderTest {
     }
 
     @Test
-    public void shouldCalculateTotalSumForOrder(){
-        order(polishMeal,mexicanMeal,italianMeal, drink);
+    public void shouldCalculateTotalSumForOrder() {
+        order(polishMeal, mexicanMeal, italianMeal, drink);
 
         BigDecimal expectedPrice = new BigDecimal(91.98, new MathContext(5));
 
         Assert.assertEquals(expectedPrice, testOrder.getPrice());
     }
 
-    private void order(Orderable... orders){
-        for (Orderable order : orders     ) {
+    @Test
+    public void shouldReturnTheStringOfOrderedItems() {
+        order(italianMeal, polishMeal, mexicanMeal, drink);
+        String expectedResult = ITALIAN_MEAL + ITALIAN_MEAL_NAME
+                + MEXICAN_MEAL_NAME + COLA_WITH_LEMON;
+
+        Assert.assertEquals(expectedResult, testOrder.getName());
+    }
+
+    private void order(Orderable... orders) {
+        for (Orderable order : orders) {
             testOrder.add(order);
         }
 

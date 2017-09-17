@@ -9,7 +9,7 @@ public class Cola implements Drink {
 
     @Override
     public BigDecimal getPrice() {
-        return new BigDecimal(  8.0);
+        return new BigDecimal(8.0);
     }
 
     @Override

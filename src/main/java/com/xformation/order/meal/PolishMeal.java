@@ -16,6 +16,6 @@ public class PolishMeal implements Orderable {
 
     @Override
     public String getName() {
-        return "Grilled pork with mushrooms " +"\n" +"Cheesecake";
+        return "Grilled pork with mushrooms " + "\n" + "Cheesecake";
     }
 }

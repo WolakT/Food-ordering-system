@@ -18,7 +18,7 @@ public class Order implements Orderable {
             sum = sum.add(orderedItems.get(i).getPrice());
 
         }
-        return sum.round(new MathContext(5));
+        return sum.setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 
 
@@ -31,10 +31,11 @@ public class Order implements Orderable {
         return sb.toString();
     }
 
-    public void add(Orderable order){
+    public void add(Orderable order) {
         orderedItems.add(order);
     }
-    public void remove(Orderable order){
+
+    public void remove(Orderable order) {
         orderedItems.remove(order);
     }
 
